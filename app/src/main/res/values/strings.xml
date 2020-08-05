@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Notify Me!</string>
+    <string name="notify_me">Notify Me!</string>
+    <string name="noti_channel_name_mascot">Mascot Notification</string>
 </resources>
