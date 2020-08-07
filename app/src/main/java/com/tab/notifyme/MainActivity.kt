@@ -2,7 +2,9 @@ package com.tab.notifyme
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -14,7 +16,6 @@ import com.tab.notifyme.databinding.ActivityMainBinding
 
 const val PRIMARY_CHANNEL_ID: String = "primary_notification_channel"
 const val NOTIFICATION_ID: Int = 0
-
 class MainActivity : AppCompatActivity() {
 
     private lateinit var mNotifyManager: NotificationManager
@@ -53,15 +54,26 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun getNotificationBuilder(): NotificationCompat.Builder =
-        NotificationCompat.Builder(this, PRIMARY_CHANNEL_ID)
+    private fun getNotificationBuilder(): NotificationCompat.Builder {
+        val notificationIntent = Intent(this, MainActivity::class.java)
+        val notificationPendingIntent = PendingIntent.getActivity(
+            this, NOTIFICATION_ID,
+            notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+        val notifyBuilder = NotificationCompat.Builder(this, PRIMARY_CHANNEL_ID)
             .setContentTitle("You've been notified!")
             .setContentText("This is your notification text.")
             .setSmallIcon(R.drawable.ic_android)
+            .setContentIntent(notificationPendingIntent)
+            .setAutoCancel(true)
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .setDefaults(NotificationCompat.DEFAULT_ALL)
+
+        return notifyBuilder
+    }
 
     private fun sendNotification() {
         mNotifyManager.notify(NOTIFICATION_ID, getNotificationBuilder().build())
-        Toast.makeText(this, "pi", Toast.LENGTH_LONG).show()
     }
 
 }
+
