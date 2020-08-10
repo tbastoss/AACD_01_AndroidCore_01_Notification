@@ -2,4 +2,6 @@
     <string name="app_name">Notify Me!</string>
     <string name="notify_me">Notify Me!</string>
     <string name="noti_channel_name_mascot">Mascot Notification</string>
+    <string name="update_me">Update Me!</string>
+    <string name="cancel_me">Cancel Me!</string>
 </resources>
